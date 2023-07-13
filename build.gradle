@@ -45,8 +45,8 @@ task remote_test(type: Test) {
         includeTags('remote')
     }
 }
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 compileJava {
     options.encoding = 'UTF-8'
