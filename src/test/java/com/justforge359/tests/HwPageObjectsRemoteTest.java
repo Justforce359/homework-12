@@ -5,6 +5,8 @@ import com.justforge359.pages.RegistrationPage;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static io.qameta.allure.Allure.step;
+
 
 public class HwPageObjectsRemoteTest extends TestBaseRemote {
     RegistrationPage registrationPage = new RegistrationPage();
@@ -27,21 +29,23 @@ public class HwPageObjectsRemoteTest extends TestBaseRemote {
         String randomState = testDataGenerator.randomState;
         String randomCity = testDataGenerator.randomCity;
 
-        registrationPage.openPage()
-                .setFirstname(firstName)
-                .setLastname(lastName)
-                .setUserEmail(userEmail)
-                .setGender(userGender)
-                .userNumber(phoneNumber)
-                .setBirthDate(rDay, rMonth, rYear)
-                .setSubjectsInput(subjects)
-                .hobbiesInput(hobbies)
-                .uploadPic(randomPic)
-                .currentAdd(currentAdd)
-                .stateAndCityInput(randomState, randomCity)
-                .submitClick();
+        step("Open page", () -> registrationPage.openPage());
+        step("Fill form", () -> {
+                    registrationPage.setFirstname(firstName)
+                            .setLastname(lastName)
+                            .setUserEmail(userEmail)
+                            .setGender(userGender)
+                            .userNumber(phoneNumber)
+                            .setBirthDate(rDay, rMonth, rYear)
+                            .setSubjectsInput(subjects)
+                            .hobbiesInput(hobbies)
+                            .uploadPic(randomPic)
+                            .currentAdd(currentAdd)
+                            .stateAndCityInput(randomState, randomCity)
+                            .submitClick();
+                });
 
-        registrationPage.shouldHave("Thanks for submitting the form")
+        step("Check form", () -> {registrationPage.shouldHave("Thanks for submitting the form")
                 .resultFormCheck("Student Name", firstName + " " + lastName)
                 .resultFormCheck("Student Email", userEmail)
                 .resultFormCheck("Gender", userGender)
@@ -52,5 +56,6 @@ public class HwPageObjectsRemoteTest extends TestBaseRemote {
                 .resultFormCheck("Picture", randomPic)
                 .resultFormCheck("Address", currentAdd)
                 .resultFormCheck("State and City", randomState + " " + randomCity);
+        });
     }
 }
