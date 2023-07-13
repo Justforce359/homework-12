@@ -54,6 +54,3 @@ task remote_test(type: Test) {
         includeTags('remote')
     }
 }
-
-sourceCompatibility = JavaVersion.VERSION_15
-targetCompatibility = JavaVersion.VERSION_15
